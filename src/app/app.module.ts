@@ -8,6 +8,7 @@ import { MenuComponent } from './components/body/menu/menu.component';
 import { BuscarFileComponent } from './components/buscarFile/buscarFile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [	
@@ -22,7 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     AppRoutingModule,
     NgbModule,
-
+    
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

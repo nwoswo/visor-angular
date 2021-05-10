@@ -1,6 +1,8 @@
 
+<form class="form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit()" novalidate>
 <div  class="row d-flex justify-content-center mt-3">
 
+  
   <div class="w-75">
     <div class="alert alert-secondary "  role="alert">
       BUSCADOR DE ARCHIVO
@@ -9,39 +11,59 @@
     <div class="row no-pad" >
     
       
-      <div class="col-2">
+      <div class="col-1">
         <label>T DOC</label>
-        <select class="form-select form-select-sm"  name="expCTdocumento" >
-          <option >DNI</option>
-          <option >RUC</option>
+        <select class="form-select form-select-sm"  formControlName="tDocumento"
+        [ngClass]="{ 'is-invalid':  myForm.controls.tDocumento.errors }">
+          
+          <option value="RUC">RUC</option>
         </select>
       </div>
     
       <div class="col-2 ">
         <label>NUMERO DOC</label>
-        <input type="text" class="form-control form-control-sm "  name="perDNrodoc" />
+        <input type="text" class="form-control form-control-sm " formControlName="numero" 
+        (keyup)="myonBlurNumero()"  (keypress)="numericOnly($event)" 
+        [ngClass]="{ 'is-invalid':  myForm.controls.numero.errors }" />
+        <div *ngIf="myForm.controls.numero.errors"  class="invalid-feedback" >
+          minimo 11 caracteres
+        </div>
       </div>
     
-      <div class="col-6 ">
+      <div class="col-7 ">
         <label>RAZON SOCIAL</label>
-        <input type="text" class="form-control form-control-sm "  name="perDNrodoc" />
+        <input type="text" class="form-control form-control-sm text-uppercase" formControlName="razonsocial" 
+        (keyup)="myonBlurRazonSocial()"  [ngClass]="{ 'is-invalid':  myForm.controls.razonsocial.errors }" />
+        <div *ngIf="myForm.controls.razonsocial.errors"  class="invalid-feedback" >
+          minimo 8 caracteres
+        </div>
+
       </div>
     
       <div class="col-2 pe-3  ">
         <label>DOCUMENTO</label>
-        <input type="text" class="form-control form-control-sm "  name="perDNrodoc" />
+        <input type="text" class="form-control form-control-sm text-uppercase"  formControlName="documento" 
+        (keyup)="myonBlurDocumento()"  [ngClass]="{ 'is-invalid':  myForm.controls.documento.errors }" />
+        <div *ngIf="myForm.controls.documento.errors"  class="invalid-feedback" >
+          minimo 5 caracteres
+        </div>
+
       </div>
       
     
     </div>
 
     <div class="row"> 
-      <div class="col d-flex justify-content-end pt-2">
-        <button type="button" class="btn btn-primary btn-sm">BUSCAR</button>
+      <div class="col d-flex justify-content-end pt-4">
+        <button [disabled]="!(myForm.valid && vsubmit)"   type="submit"  class="btn btn-primary btn-sm"  
+          >BUSCAR
+        </button>
       </div>
     </div>
     
   </div>
+
   
   
 </div>
+</form>
