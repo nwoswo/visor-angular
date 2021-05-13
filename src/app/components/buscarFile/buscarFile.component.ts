@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { IDocumento } from 'src/app/core/models/idocumento';
 import { VisorService } from 'src/app/core/services/visor.service';
 
 @Component({
@@ -11,6 +12,9 @@ export class BuscarFileComponent implements OnInit {
 
   myForm: FormGroup;
   public vsubmit=true;
+  page = 1;
+  ldocumentos: IDocumento[] = [];
+  totalpages:number;
 
   constructor(
     private fb: FormBuilder,
@@ -30,59 +34,79 @@ export class BuscarFileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.vsubmit = (this.numero.value=='')
+    this.vsubmit = false;
   }
+
+  openurl(){
+    window.open("http://localhost:8080/visor/api/file?fileName=CV-95075-3217.pdf", '_blank');  
+  }
+
+  public onPageChange(pageNum: number): void {
+    console.log(pageNum);
+    this.page = pageNum;
+    this.onSubmit();
+  }
+
 
   onSubmit() {
     console.log('this.myForm.value: ', this.myForm.value);
-    this.visorService.findjuridica( this.myForm.value ).subscribe(
+    this.visorService.findjuridica( this.myForm.value, this.page ).subscribe(
       rpta=> {
         console.log(rpta);
+        this.ldocumentos = rpta;
+        if(this.ldocumentos.length>0){
+          this.totalpages = this.ldocumentos[0].tnumpages;
+        }
       }
     );
    
   }
 
-  myonBlurNumero(){
-
-
+  listar(){
     
+  }
+
+  myonBlurNumero(){
 
     if(this.myForm.value.numero!=''){
 
-      this.numero.setValidators([Validators.required, Validators.minLength(3),Validators.maxLength(3)]);
+      this.numero.setValidators([Validators.required, Validators.minLength(11),Validators.maxLength(11)]);
     }if(this.myForm.value.numero==''){
       this.numero.clearValidators();
     }
     this.vsubmit = this.numero.valid;
-
+    
 
     this.numero.updateValueAndValidity()
+    if(this.myForm.valid) this.vsubmit =true
   }
 
   myonBlurRazonSocial(){
-
-    if(this.myForm.value.razonsocial!=''){
+    console.log('myonBlurRazonSocial:',this.myForm.value.razonsocial.trim(),'-');
+    if(this.myForm.value.razonsocial.trim()!=''){
 
       this.razonsocial.setValidators([Validators.required, Validators.minLength(8)]);
-    }if(this.myForm.value.razonsocial==''){
+    }else{
       this.razonsocial.clearValidators();
     }
     this.vsubmit = this.razonsocial.valid;
     this.razonsocial.updateValueAndValidity()
+    
+    if(this.myForm.valid) this.vsubmit =true
   }
 
   myonBlurDocumento(){
 
     if(this.myForm.value.documento!=''){
 
-      this.documento.setValidators([Validators.required, Validators.minLength(5)]);
+      this.documento.setValidators([Validators.required, Validators.minLength(8)]);
     }if(this.myForm.value.documento==''){
       this.documento.clearValidators();
     }
     this.vsubmit = this.documento.valid;
-    
+
     this.documento.updateValueAndValidity()
+    if(this.myForm.valid) this.vsubmit =true
   }
 
 

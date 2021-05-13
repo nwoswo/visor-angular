@@ -11,7 +11,7 @@
     <div class="row no-pad" >
     
       
-      <div class="col-1">
+      <div class="col-2">
         <label>T DOC</label>
         <select class="form-select form-select-sm"  formControlName="tDocumento"
         [ngClass]="{ 'is-invalid':  myForm.controls.tDocumento.errors }">
@@ -30,7 +30,7 @@
         </div>
       </div>
     
-      <div class="col-7 ">
+      <div class="col-6">
         <label>RAZON SOCIAL</label>
         <input type="text" class="form-control form-control-sm text-uppercase" formControlName="razonsocial" 
         (keyup)="myonBlurRazonSocial()"  [ngClass]="{ 'is-invalid':  myForm.controls.razonsocial.errors }" />
@@ -45,14 +45,14 @@
         <input type="text" class="form-control form-control-sm text-uppercase"  formControlName="documento" 
         (keyup)="myonBlurDocumento()"  [ngClass]="{ 'is-invalid':  myForm.controls.documento.errors }" />
         <div *ngIf="myForm.controls.documento.errors"  class="invalid-feedback" >
-          minimo 5 caracteres
+          minimo 8 caracteres
         </div>
 
       </div>
       
     
     </div>
-
+    <!-- {{myForm.valid}}  - {{vsubmit}} -->
     <div class="row"> 
       <div class="col d-flex justify-content-end pt-4">
         <button [disabled]="!(myForm.valid && vsubmit)"   type="submit"  class="btn btn-primary btn-sm"  
@@ -63,7 +63,69 @@
     
   </div>
 
+  <div class="w-75" *ngIf="ldocumentos.length >0">
+
+    <hr>
+    <table class="table">
+
+      <thead class="text-center">
+        <tr>
+
+          <th scope="col" style="width: 10%">
+            T DOC
+          </th>
+          <th scope="col" style="width: 10%">
+            DATOS
+          </th>
+          <th scope="col" style="width: 10%">
+            DOCUMENTO
+          </th>
+          <th scope="col" style="width: 10%">
+            ARCHIVO
+          </th>
+          
+          
+        </tr>
+      </thead>
+      <tbody class="text-center">
+
+
+        
+        <tr *ngFor="let item of ldocumentos " >
+
+
+          <td>
+            {{item.tipodoc }} - {{item.documento }}
+          </td>
+          <td>
+            {{item.razonsocial }}
+          </td>
+          <td>
+            {{item.documentoname }}
+          </td>
+          
+          <td>
+            <svg class="bi"  width="18" height="18" (click)="openurl()"
+            *ngIf="item.documentofisico !=null && item.documentofisico!=''">
+              <use xlink:href="assets/bootstrap-icons.svg#file-earmark-text" />
+            </svg>
+          </td>
+         
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+</div>
   
+<!-- <pre>Current page: {{page}} | Current page: {{totalpages}}</pre> -->
+  <div  class="d-flex justify-content-center mt-3" *ngIf="ldocumentos.length >0">
+ 
+
+  <ngb-pagination [collectionSize]="totalpages*2" [(page)]="page" aria-label="Default pagination"
+  (pageChange)="onPageChange(page)">
+  </ngb-pagination>
   
 </div>
 </form>
