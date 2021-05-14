@@ -37,8 +37,8 @@ export class BuscarFileComponent implements OnInit {
     this.vsubmit = false;
   }
 
-  openurl(){
-    window.open("http://localhost:8080/visor/api/file?fileName=CV-95075-3217.pdf", '_blank');  
+  openurl(file){
+    window.open(`http://localhost:8080/visor/api/file?fileName=${file}`, '_blank');  
   }
 
   public onPageChange(pageNum: number): void {
@@ -50,7 +50,8 @@ export class BuscarFileComponent implements OnInit {
 
   onSubmit() {
     console.log('this.myForm.value: ', this.myForm.value);
-    this.visorService.findjuridica( this.myForm.value, this.page ).subscribe(
+    console.log('this.page: ', this.page);
+    this.visorService.findjuridica( this.myForm.value, this.page || 1).subscribe(
       rpta=> {
         console.log(rpta);
         this.ldocumentos = rpta;

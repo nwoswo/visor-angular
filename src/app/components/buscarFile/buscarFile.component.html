@@ -102,10 +102,11 @@
           </td>
           <td>
             {{item.documentoname }}
+            
           </td>
           
           <td>
-            <svg class="bi"  width="18" height="18" (click)="openurl()"
+            <svg class="bi"  width="18" height="18" (click)="openurl(item.documentofisico )"
             *ngIf="item.documentofisico !=null && item.documentofisico!=''">
               <use xlink:href="assets/bootstrap-icons.svg#file-earmark-text" />
             </svg>
