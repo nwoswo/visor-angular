@@ -1,14 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+
 import { IDocumento } from 'src/app/core/models/idocumento';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class VisorService {
-private url = 'http://localhost:8080/visor';
+private url = environment.url;
 
 
 constructor(

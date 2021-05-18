@@ -4,23 +4,19 @@ import { BodyComponent } from './components/body/body.component';
 import { BuscarFileComponent } from './components/buscarFile/buscarFile.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'app/visor', pathMatch: 'full' },
-  {
-    path: 'app',
-    children: [
+  { path: '', redirectTo: 'app', pathMatch: 'full' },
+  
       
+  {
+    path: 'app', component: BodyComponent,
+    children: [
       {
-        path: 'visor', component: BodyComponent,
-        children: [
-          {
-            path: '', component: BuscarFileComponent
-          },
-        ],
+        path: '', component: BuscarFileComponent
       },
-
-    ]
+    ],
   },
 
+  
   
 
 ];

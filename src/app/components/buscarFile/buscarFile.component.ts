@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IDocumento } from 'src/app/core/models/idocumento';
 import { VisorService } from 'src/app/core/services/visor.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-buscarFile',
@@ -15,6 +16,8 @@ export class BuscarFileComponent implements OnInit {
   page = 1;
   ldocumentos: IDocumento[] = [];
   totalpages:number;
+  public url = environment.url;
+
 
   constructor(
     private fb: FormBuilder,
@@ -38,7 +41,7 @@ export class BuscarFileComponent implements OnInit {
   }
 
   openurl(file){
-    window.open(`http://localhost:8080/visor/api/file?fileName=${file}`, '_blank');  
+    window.open(`${this.url}/api/file?fileName=${file}`, '_blank');  
   }
 
   public onPageChange(pageNum: number): void {
