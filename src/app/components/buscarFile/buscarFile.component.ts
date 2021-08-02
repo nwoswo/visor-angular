@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { IDocumento } from 'src/app/core/models/idocumento';
 import { VisorService } from 'src/app/core/services/visor.service';
 import { environment } from 'src/environments/environment';
@@ -17,11 +18,13 @@ export class BuscarFileComponent implements OnInit {
   ldocumentos: IDocumento[] = [];
   totalpages:number;
   public url = environment.url;
+  tipoBusqueda:string;
 
 
   constructor(
     private fb: FormBuilder,
-    private visorService:VisorService
+    private visorService:VisorService,
+    private route :ActivatedRoute
   ) { 
     this.myForm =  fb.group({
 
@@ -33,15 +36,35 @@ export class BuscarFileComponent implements OnInit {
 
     });
     
+    let id = parseInt(this.route.snapshot.paramMap.get('tipo'))
+    console.log('idxxxxxxxx:',id);
+    switch(id) { 
+      case 1: { 
+         this.tipoBusqueda='EMPLEADORES';
+         break; 
+      } 
+      case 2: { 
+        this.tipoBusqueda='EMPLEADORES TRAMITES';
+         break; 
+      } 
+      case 3: { 
+        this.tipoBusqueda='RESOLUCIONES ADMINISTRATIVAS';
+         break; 
+      } 
+    }
     
   }
 
   ngOnInit() {
     this.vsubmit = false;
+
+    
+
+
   }
 
   openurl(file){
-    window.open(`${this.url}/api/file?fileName=${file}`, '_blank');  
+    window.open(`${this.url}/api/file?fileName=${file}.pdf`, '_blank');  
   }
 
   public onPageChange(pageNum: number): void {

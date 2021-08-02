@@ -13,5 +13,6 @@ export interface IDocumento {
 	documentofisico: string;
 	tnumpages: number;
 	tnumrows: number;
+	barcofscan: string;
   
   }

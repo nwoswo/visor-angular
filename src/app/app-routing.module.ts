@@ -2,16 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BodyComponent } from './components/body/body.component';
 import { BuscarFileComponent } from './components/buscarFile/buscarFile.component';
+import { InicioComponent } from './components/inicio/inicio.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'app', pathMatch: 'full' },
+  { path: '', redirectTo: 'init', pathMatch: 'full' },
   
-      
+  { path:'init', component: InicioComponent},
   {
     path: 'app', component: BodyComponent,
     children: [
       {
-        path: '', component: BuscarFileComponent
+        path: 'buscar/:tipo', component: BuscarFileComponent
       },
     ],
   },

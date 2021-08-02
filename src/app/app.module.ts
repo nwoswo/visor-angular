@@ -9,13 +9,15 @@ import { BuscarFileComponent } from './components/buscarFile/buscarFile.componen
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { InicioComponent } from './components/inicio/inicio.component';
 
 @NgModule({
   declarations: [	
     AppComponent,
     BodyComponent,
     MenuComponent,
-    BuscarFileComponent
+    BuscarFileComponent,
+    InicioComponent
    ],
   imports: [
     BrowserModule,

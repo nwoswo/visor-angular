@@ -5,7 +5,7 @@
   
   <div class="w-75">
     <div class="alert alert-secondary "  role="alert">
-      BUSCADOR DE ARCHIVO
+      BUSCADOR DE ARCHIVO : {{tipoBusqueda}}
     </div>
     
     <div class="row no-pad" >
@@ -17,6 +17,7 @@
         [ngClass]="{ 'is-invalid':  myForm.controls.tDocumento.errors }">
           
           <option value="RUC">RUC</option>
+          <option value="RUC">DNI</option>
         </select>
       </div>
     
@@ -55,8 +56,8 @@
     <!-- {{myForm.valid}}  - {{vsubmit}} -->
     <div class="row"> 
       <div class="col d-flex justify-content-end pt-4">
-        <button [disabled]="!(myForm.valid && vsubmit)"   type="submit"  class="btn btn-primary btn-sm"  
-          >BUSCAR
+        <button [disabled]="!(myForm.valid && vsubmit)"   type="submit"  class="btn btn-primary btn-sm"  >
+          <i class="bi bi-search"></i> BUSCAR 
         </button>
       </div>
     </div>
@@ -106,10 +107,14 @@
           </td>
           
           <td>
-            <svg class="bi"  width="18" height="18" (click)="openurl(item.documentofisico )"
+            <i class="bi bi-files" 
+              (click)="openurl(item.barcofscan )" *ngIf="item.barcofscan !=null && item.barcofscan!=''">
+            </i>
+            
+            <!-- <svg class="bi"  width="18" height="18" (click)="openurl(item.documentofisico )"
             *ngIf="item.documentofisico !=null && item.documentofisico!=''">
               <use xlink:href="assets/bootstrap-icons.svg#file-earmark-text" />
-            </svg>
+            </svg> -->
           </td>
          
         </tr>
